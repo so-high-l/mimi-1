@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MIMiverse Dashboard</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="shortcut icon" type="image/png" href="theme/logo.png" />
+    <meta name="description" content="MIMiverse Dashboard" />
+  </head>
+
+  <body>
+    <link rel="stylesheet" type="text/css" href="style.css?x=1236" />
+    <script src="../repo/bpx/release/bpx-1.86-min.js"></script>
+    <script src="../repo/kites/release/kites-1.08-min.js?x=1"></script>
+
+    <script>
+      // Client Configuration
+      var client_name = "MIMiverse";
+      var clientid = "mimiverse";
+
+      // Token
+      var token_ca = "0x284748b6c0c1ec75c73285f4557fe8f51f800480";
+      var distributor_ca = "0xc3940a6a418b6858431185356cbb45d6a99655cd";
+      var token_symbol = "MIMiverse";
+      var token_decimals = 9;
+
+      // Reward Token
+      var reward_ca = "0x959b88966fC5B261dF8359961357d34F4ee27b4a";
+      var reward_symbol = "UNIV";
+      var reward_token_decimals = 18;
+
+      // Settings
+      var can_display_incoming_rewards = true;
+
+      // Decimals
+      var token_display_decimals = 2;
+      var token_price_display_decimals = 12;
+      var token_in_usd_display_decimals = 2;
+      var reward_display_decimals = 4;
+      var reward_price_display_decimals = 2;
+      var rewards_in_usd_display_decimals = 4;
+      var mcap_display_decimals = 2;
+
+      // Links
+      // set to empty "" to disable the link
+      var contract_link =
+        "https://snowtrace.io/token/0x284748b6c0c1ec75c73285f4557fe8f51f800480";
+      var website_link = "https://mimiverse.finance/";
+      var telegram_link = "https://t.me/MIMiverseAVAX";
+      var twitter_link = "";
+    </script>
+
+    <!--loading screen-->
+    <div id="blocker">
+      <img src="dashboard/loader_white.svg" alt="" />
+    </div>
+
+    <!--modal windows-->
+    <div class="modal_container">
+      <!--modal-->
+      <div id="disclaimer" class="modal closeable">
+        <div style="float: left">
+          <span class="modal_title">Disclaimer</span>
+
+          The information displayed on the dashboard is collected from the
+          token's smart contract and third-party blockchain data services, and
+          is subject to the availability and accuracy of such services.
+          Network/blockchain congestion may affect the accuracy of the data. The
+          dashboard is provided as-is without any warranties, and its developer
+          shall not be held liable for any outcome resulting from its use. The
+          developer of the dashboard is not affiliated with the token owners or
+          their organization, and likewise, shall not be held liable for any
+          wrongdoing by the token owners or their organization. Mccharts.com
+          reserves the right to suspend or disable the dashboard when there's a
+          reasonable basis to do so, including but not limited to non-payment of
+          recurring service fees.
+        </div>
+      </div>
+
+      <!--modal-->
+      <div id="privacy" class="modal closeable">
+        <div style="float: left">
+          <span class="modal_title">Privacy and Security Policy</span>
+
+          The dashboard does not collect any personal information from users and
+          will never ask users to enter their wallet seed phrase or password.
+          The dashboard does not support wallet-connect and does not invoke
+          executable functions in the token's smart contract.<br /><br />
+          This dashboard complies with the following standard:<br />
+          <ul>
+            <li>Works without wallet-connect interface</li>
+            <li>Anonymous access, zero tracking</li>
+            <li>Collects no personal information</li>
+            <li>Open-source if wallet-connect is present</li>
+          </ul>
+        </div>
+      </div>
+
+      <!--modal-->
+      <div id="about_daily" class="modal closeable">
+        <div style="float: left">
+          <span class="modal_title">Daily Share Estimate</span>
+
+          Your share of the supply multiplied by total dividends dispensed in
+          the last 24 hours. This is an estimate and may not be equal to what
+          you've actually received in the last 24 hours. Values presented here
+          are conservative but become more accurate over time.
+        </div>
+      </div>
+
+      <!--modal-->
+      <div id="about_weekly" class="modal closeable">
+        <div style="float: left">
+          <span class="modal_title">Weekly Projection</span>
+
+          Your daily estimate multiplied by 7 days.
+        </div>
+      </div>
+
+      <!--modal-->
+      <div id="about_monthly" class="modal closeable">
+        <div style="float: left">
+          <span class="modal_title">Monthly Projection</span>
+
+          Your daily estimate multiplied by 30 days.
+        </div>
+      </div>
+    </div>
+
+    <!--background layer-->
+    <!-- <div class="background" id="graphic_bg"></div> -->
+    <div class="background" id="particles-js"></div>
+
+    <!--foreground layer-->
+    <div class="foreground">
+      <!--padding-->
+      <center>
+        <div class="padder">
+          <!--token info section-->
+          <div class="hsection">
+            <!--token info and links-->
+            <center>
+              <div
+                class="twothirds transp"
+                style="background-color: transparent"
+              >
+                <!--img src="theme/logo2.png"><br-->
+                <span class="logotext" style="color: #ffffff"
+                  >MIM<span style="color: #f700ea">IVERSE</span></span
+                ><br />
+
+                <a
+                  id="contract_link"
+                  href=""
+                  target="_blank"
+                  class="official_links"
+                  style="margin-right: 1rem"
+                  >Contract</a
+                >
+                <a
+                  id="website_link"
+                  href=""
+                  target="_blank"
+                  class="official_links"
+                  style="margin-right: 1rem"
+                  >Website</a
+                >
+                <a
+                  id="telegram_link"
+                  href=""
+                  target="_blank"
+                  class="official_links"
+                  >Telegram</a
+                >
+                <a
+                  id="twitter_link"
+                  href=""
+                  target="_blank"
+                  class="official_links"
+                  >Twitter</a
+                >
+              </div>
+
+              <!--address input-->
+              <div class="address_line">
+                <input
+                  id="address"
+                  type="text"
+                  value=""
+                  placeholder="AVAX C-Chain public address"
+                />
+                <!--		
+				-->
+                <div class="go_btn" onclick="postAddress()">
+                  <img src="dashboard/right.svg" alt="" class="go_btn" />
+                </div>
+              </div>
+            </center>
+          </div>
+
+          <!--wallet info section-->
+
+          <!--stats section-->
+          <div class="hsection">
+            <center>
+              <div id="address_line_active" class="hide">
+                <!--wallet address subsection-->
+                <div class="stats twothirds">
+                  <table border="0" cellpacing="0" cellpadding="0">
+                    <tr>
+                      <td>
+                        <canvas id="walletav" style="display: none"></canvas>
+                        <img
+                          src="dashboard/wallet.png"
+                          style="margin-right: 1rem"
+                        />
+                      </td>
+                      <td>
+                        <span class="box_label">Wallet Connected</span><br />
+
+                        <span id="wallet_address" class="bal"></span>
+                        <a onclick="submitAddress()" class="walleticon"
+                          ><img
+                            id="refreshicon"
+                            src="dashboard/refresh.svg"
+                            class="walleticon"
+                            alt=""
+                        /></a>
+
+                        <!--a href="#rewards_section" class=a2 style="margin-left:.5rem;">MY REWARDS</a-->
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <!--balance subsection-->
+                <div class="stats twothirds">
+                  <span class="box_label">My Balance</span><br />
+                  <span id="balance" class="bal">...</span>
+                  <a
+                    id="toggleViewBalanceBtn"
+                    href="javascript:"
+                    onclick="toggleViewBalance()"
+                    class="a2"
+                    style="display: none"
+                    >hide</a
+                  ><br />
+                  <span id="balance_usd" class="usd"></span>
+                </div>
+              </div>
+
+              <div class="stats twothirds">
+                <span class="box_label">Price</span><br />
+                <span class="stats_price bal"></span><br />
+
+                <span class="box_label">Market Cap</span><br />
+                <span class="stats_mcap bal"></span><br />
+
+                <span class="box_label">Total Dividends</span><br />
+                <span id="total_rewards" class="bal">...</span><br />
+                <span id="total_rewards_usd" class="usd">...</span><br />
+              </div>
+              <!--no space here-->
+              <div class="stats twothirds">
+                <span class="box_label">My Rewards Received</span><br />
+                <span id="rewards" class="bal">...</span>
+                <a
+                  id="reward_refresh_btn"
+                  href="javascript:"
+                  onclick="submitAddress(true)"
+                  class="a2"
+                  style="display: none"
+                  >reload</a
+                ><br />
+                <span id="rewards_usd" class="usd"></span>
+              </div>
+              <!--no space here-->
+              <div class="stats twothirds">
+                <span class="box_label">Pending Rewards</span><br />
+                <span id="pending_payout" class="bal">...</span><br />
+                <span id="pending_payout_usd" class="usd"></span>
+              </div>
+              <!--no space here-->
+              <div class="stats twothirds">
+                <span class="box_label"
+                  >Daily Share Estimate
+                  <img
+                    src="dashboard/question.svg"
+                    alt=""
+                    class="info_icon"
+                    onclick="showModal('about_daily');"
+                    style="margin-left: 0.25rem; vertical-align: -2px" /></span
+                ><br />
+                <span id="daily" class="bal">...</span><br />
+                <span id="daily_usd" class="usd"></span>
+              </div>
+              <!--no space here-->
+              <div class="stats twothirds">
+                <span class="box_label"
+                  >Weekly Projection
+                  <img
+                    src="dashboard/question.svg"
+                    alt=""
+                    class="info_icon"
+                    onclick="showModal('about_weekly');"
+                    style="margin-left: 0.25rem; vertical-align: -2px" /></span
+                ><br />
+                <span id="weekly" class="bal">...</span><br />
+                <span id="weekly_usd" class="usd"></span>
+              </div>
+              <!--no space here-->
+              <div class="stats twothirds">
+                <span class="box_label"
+                  >Monthly Projection
+                  <img
+                    src="dashboard/question.svg"
+                    alt=""
+                    class="info_icon"
+                    onclick="showModal('about_monthly');"
+                    style="margin-left: 0.25rem; vertical-align: -2px" /></span
+                ><br />
+                <span id="monthly" class="bal">...</span><br />
+                <span id="monthly_usd" class="usd"></span>
+              </div>
+            </center>
+          </div>
+
+          <!--footer section-->
+          <!--div class=footer>
+				<a onclick="showModal('disclaimer')" class=footer_link>Disclaimer</a>
+				<a onclick="showModal('privacy')" class=footer_link>Privacy and Security</a>
+		</div-->
+        </div>
+        <!--end of padder-->
+      </center>
+    </div>
+    <!--end of foreground-->
+
+    <!--fetch JSON read-only data from blockchain data providers-->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="r67.js?x=1"></script>
+    <script src="particles.js"></script>
+  </body>
+</html>
