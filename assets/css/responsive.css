@@ -457,10 +457,9 @@
   .navbar-nav {
     -webkit-animation-name: none;
     animation-name: none;
-    /* border-right: 1px solid rgba(255, 255, 255, 0.6); */
     float: left;
     text-align: center;
-    width: 50%;
+    width: 100%;
   }
   .navbar-nav:last-child {
     border: 0;
@@ -733,6 +732,13 @@
   }
   .banner_partner_logo {
     padding: 10px;
+  }
+  ul.drowdown-list {
+    background-color: transparent !important;
+    display: flex !important;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
   }
 }
 /* -------------------------------------------------
@@ -1274,7 +1280,7 @@
   .navbar-nav {
     border-right: 0 none;
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
   }
   .section_banner {
     padding: 100px 0 50px 0;

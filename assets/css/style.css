@@ -660,6 +660,7 @@ ul.drowdown-list li {
   list-style: none;
   width: 180px;
   padding: 4px 5px;
+  /* border-top: 1px solid #fff; */
 }
 ul.drowdown-list li a {
   font-size: 13px;
@@ -1211,9 +1212,18 @@ header .navbar-nav a {
 .navbar-expand-lg .navbar-nav > li {
   padding: 0 12px;
 }
-.navbar-expand-lg .navbar-nav > li:last-child {
+.navbar-expand-lg .navbar-nav > li:first-child {
+  border: none;
   padding-right: 0;
 }
+.navbar-expand-lg .navbar-nav > li:nth-child(6) {
+  padding-right: 0;
+}
+.navbar-expand-lg .navbar-nav > li:last-child {
+  padding-right: 0;
+  border: none;
+}
+
 header a:hover,
 .navbar-nav li a.active,
 .navbar-nav .dropdown-menu li.active a {
@@ -1277,6 +1287,11 @@ header a:hover,
   border-radius: 0;
   margin: 0;
   padding: 0px;
+}
+#navbarSupportedContent {
+  background-color: transparent;
+  padding-bottom: 30px;
+  border-radius: 0px 0px 4px 4px;
 }
 .dropdown-item:focus,
 .dropdown-item:hover {
@@ -6756,7 +6771,7 @@ button.btn-white:hover {
   .navbar-nav {
     border-right: 0 none;
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
   }
   .section_banner {
     padding: 100px 0 50px 0;
@@ -7101,7 +7116,7 @@ button.btn-white:hover {
   .navbar-nav {
     border-right: 0 none;
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
   }
   .section_banner {
     padding: 100px 0 50px 0;
@@ -7377,8 +7392,10 @@ button.btn-white:hover {
 }
 
 @media only screen and (max-width: 991px) {
+  #navbarSupportedContent {
+    background-color: #2b2983;
+  }
   ul.drowdown-list {
-    background-color: rgb(137, 43, 226);
     display: block;
     position: relative;
     padding: 8px 15px;
@@ -7388,8 +7405,26 @@ button.btn-white:hover {
     list-style: none;
     width: 180px;
     padding: 4px 5px;
+
+    border-top: 1px solid #fff;
   }
   ul.drowdown-list li a {
     font-size: 13px;
+  }
+  .navbar-expand-lg .navbar-nav > li {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0 12px;
+  }
+  .navbar-expand-lg .navbar-nav > li:first-child {
+    padding-right: 0;
+  }
+  .navbar-expand-lg .navbar-nav > li:nth-child(6) {
+    border-bottom: none;
+
+    padding-right: 0;
+  }
+  .navbar-expand-lg .navbar-nav > li:last-child {
+    border: none;
+    padding-right: 0;
   }
 }
