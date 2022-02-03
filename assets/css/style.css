@@ -644,6 +644,30 @@ button:focus {
   color: #fff;
   padding: 10px;
 }
+
+/* dropdown */
+ul li#buy-btn:hover ul.drowdown-list {
+  display: block;
+}
+ul.drowdown-list {
+  background-color: rgba(137, 43, 226, 0.527);
+  display: none;
+  position: absolute;
+  padding: 8px 15px;
+  border-radius: 4px 4px 4px 4px;
+}
+ul.drowdown-list li {
+  list-style: none;
+  width: 180px;
+  padding: 4px 5px;
+}
+ul.drowdown-list li a {
+  font-size: 13px;
+}
+/* respo */
+
+/* end of dropdown */
+
 .color-switch button::after {
   color: #ffffff;
   content: "\f122";
@@ -7349,5 +7373,23 @@ button.btn-white:hover {
   }
   .list_info_half li {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  ul.drowdown-list {
+    background-color: rgb(137, 43, 226);
+    display: block;
+    position: relative;
+    padding: 8px 15px;
+    border-radius: 4px 4px 4px 4px;
+  }
+  ul.drowdown-list li {
+    list-style: none;
+    width: 180px;
+    padding: 4px 5px;
+  }
+  ul.drowdown-list li a {
+    font-size: 13px;
   }
 }
